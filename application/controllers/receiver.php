@@ -19,14 +19,14 @@ class Receiver extends CI_Controller {
 		if ($event) {
 			$event = $this->_post_process_event($event);
 			
-			// write to the database unless in debug mode, in which case we
-			// print out the data to be written on the page
+		  // write to the database unless in debug mode, in which case we
+		  // print out the data to be written on the page
 		  if (!isset($debug) or $debug != 'debug') {
 				// use model to write converted event data to database
 				$this->load->model('event_model');
-		    	$this->event_model->add_record($event);
+		    $this->event_model->add_record($event);
 			} else {
-				print_r($event);
+        print_r($event);
 			}
 		}
 	}
@@ -35,11 +35,14 @@ class Receiver extends CI_Controller {
 	{
 		list($event['latitude'], $event['longitude']) =
 			$this->_convert_lat_lng_to_decimal($event['latitude'], 
-										$event['longitude']);
+                                         $event['longitude']);
 		
 		$event['timestamp'] = 
 			$this->_convert_to_unix_timestamp($event['timestamp']);
 		
+    // round speed down to remove small deviations in speed when tracker at rest
+    $event['speed'] = floor($event['speed']);
+    
 		return $event;
 	}
 	
