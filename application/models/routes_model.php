@@ -34,7 +34,6 @@ class Routes_model extends CI_Model {
     $query = $this->db->get('routes');
     $result = $query->result_array();
     
-    
     $route = NULL;
     if (sizeof($result) > 0) {
       $route = $result[0];
@@ -58,6 +57,7 @@ class Routes_model extends CI_Model {
                                 ); 
         }
       }
+      
       $route['coords'] = $compressed_coord;
     }
     return $route;
