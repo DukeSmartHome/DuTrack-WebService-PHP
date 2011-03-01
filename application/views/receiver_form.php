@@ -32,11 +32,11 @@ $defaults = array(
 	'timestamp' => '013726.010311',
 );
 
-$action_url = '/receiver/event/';
-if ($debug) $action_url . 'debug';
+$action_url = '/r/';
+if ($debug == 'debug') $action_url .= 'debug';
 ?>
 
-<?=form_open('/receiver/event/')?>
+<?=form_open($action_url)?>
 	<? foreach($post_data_map as $name=>$title):?>
 		<?=form_label($title, $name)?>
 		<?=form_input(array('name'=>$name), $defaults[$title])?>

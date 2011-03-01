@@ -40,6 +40,8 @@
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
+$route['r'] = "receiver/event";
+$route['r/debug'] = "receiver/event/debug";
 
 
 /* End of file routes.php */
