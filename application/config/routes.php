@@ -40,8 +40,15 @@
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
+
+// receiver controller
 $route['r'] = "receiver/event";
 $route['r/debug'] = "receiver/event/debug";
+
+// client api
+// routes
+$route['routes/([a-z0-9]+)'] = "routes/index/$1";
+
 
 
 /* End of file routes.php */
