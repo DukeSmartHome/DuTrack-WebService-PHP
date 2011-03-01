@@ -85,7 +85,7 @@ class Receiver extends CI_Controller {
 		$month = substr($date, 2, 2);
 		$year = substr($date, 4, 2);
 		
-		return gmmktime($hour, $minute, $second, $day, $month, $year);
+		return gmmktime($hour, $minute, $second, $month, $day, $year);
 	}
 	
 	/**
