@@ -46,8 +46,8 @@ $route['r'] = "receiver/event";
 $route['r/debug'] = "receiver/event/debug";
 
 // client api
-// routes
 $route['routes/([a-z0-9]+)'] = "routes/index/$1";
+$route['routes/([a-z0-9]+)/buses'] = "buses/index/$1";
 
 
 
