@@ -12,15 +12,18 @@ class Receiver extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 	
-	function event($debug) 
+	function event($debug = False) 
 	{
 		$event = $this->_map_post_data_for_model();
 		
 		if ($event) {
 			$event = $this->_post_process_event($event);
 			
+			// write to the database unless in debug mode, in which case we
+			// print out the data to be written on the page
 			if (!isset($debug) or $debug != 'debug') {
 				// use model to write converted event data to database
+				$this->load->model('event_model');
 		    	$this->event_model->add_record($event);
 			} else {
 				print_r($event);
@@ -123,9 +126,9 @@ class Receiver extends CI_Controller {
 	/**
 	 * DISABLE ON PRODUCTION SITE - Used to test reciever 
 	 */
-	function test_form()
+	function test_form($debug = False)
 	{
 		$this->load->helper('form');
-		$this->load->view('receiver_form');
+		$this->load->view('receiver_form', array('debug'=>$debug));
 	}
 }

@@ -31,9 +31,12 @@ $defaults = array(
 	'speed' => '45.67',
 	'timestamp' => '013726.010311',
 );
+
+$action_url = '/receiver/event/';
+if ($debug) $action_url . 'debug';
 ?>
 
-<?=form_open('/receiver/event/debug')?>
+<?=form_open('/receiver/event/')?>
 	<? foreach($post_data_map as $name=>$title):?>
 		<?=form_label($title, $name)?>
 		<?=form_input(array('name'=>$name), $defaults[$title])?>
