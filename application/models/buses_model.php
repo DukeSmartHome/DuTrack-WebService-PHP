@@ -33,7 +33,9 @@ class Buses_model extends CI_Model {
       
       $this->db->_reset_select();
       
-      $this->db->select('latitude, longitude, speed, heading');
+      // do not cache this query
+      $this->db->select(
+        'SQL_NO_CACHE `latitude`, `longitude`, `speed`, `heading`', FALSE);
       $this->db->where('device_id', $bus['device_id']);
       $this->db->where("timestamp = ($max_timestamp_for_device)");
       $this->db->limit(1);
