@@ -4,24 +4,24 @@ class Receiver extends CI_Controller {
 
 	function __construct()
 	{
-		parent::__construct();
+    parent::__construct();
 	}
 
 	function index()
 	{
-		$this->load->view('welcome_message');
+    $this->load->view('welcome_message');
 	}
 	
 	function event($debug = False) 
 	{
-		$event = $this->_map_post_data_for_model();
+    $event = $this->_map_post_data_for_model();
 		
 		if ($event) {
 			$event = $this->_post_process_event($event);
 			
 			// write to the database unless in debug mode, in which case we
 			// print out the data to be written on the page
-			if (!isset($debug) or $debug != 'debug') {
+		  if (!isset($debug) or $debug != 'debug') {
 				// use model to write converted event data to database
 				$this->load->model('event_model');
 		    	$this->event_model->add_record($event);
@@ -99,19 +99,19 @@ class Receiver extends CI_Controller {
 	{
 		// create map the abbreviate post data to database
 		$post_data_map = array(
-	        'id'	=> 'device_id',
-	        'h'		=> 'heading',
-	        'la'	=> 'latitude',
-	        'lo'   	=> 'longitude',
-	        's'   	=> 'speed',
-	        't'   	=> 'timestamp',
-      	);
+      'id'	=> 'device_id',
+      'h'		=> 'heading',
+      'la'	=> 'latitude',
+      'lo'   	=> 'longitude',
+      's'   	=> 'speed',
+      't'   	=> 'timestamp',
+  	);
       	
 		// create new array with full column names as keys to to be passed in
 		// to model
-      	$event = array();
-      	foreach ($post_data_map as $key => $value) {
-      		$post_value = $this->input->post($key);
+  	$event = array();
+  	foreach ($post_data_map as $key => $value) {
+  		$post_value = $this->input->post($key);
 			
 			// break and return NULL if any value is blank
 			if (!isset($post_value) or $post_value == '') {
