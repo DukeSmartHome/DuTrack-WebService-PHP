@@ -29,7 +29,7 @@ $defaults = array(
 	'latitude' => '3601.1512N',
 	'longitude' => '07856.7354W',
 	'speed' => '45.67',
-	'timestamp' => '013726.010311',
+	'timestamp' => date('His.dmy'),
 );
 
 $action_url = '/r/';
