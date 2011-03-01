@@ -52,17 +52,17 @@ class Receiver extends CI_Controller {
 		else $lat_dir = -1;
 		
 		if (substr($lng, -1) == 'E') $lng_dir = 1;
-		$lng_dir = -1;
+		else $lng_dir = -1;
 		
 		// convert latitude
 		$degrees = (float) substr($lat, 0, 2);
 		$minutes = (float) substr($lat, 2, 9);
-		$latitude_decimal = $lat_dir * ($degrees + $lat_dir * $minutes/60);
+		$latitude_decimal = $lat_dir * $degrees + $lat_dir * ($minutes/60);
 		
 		// convert longitutde
 		$degrees = (float) substr($lng, 0, 3);
 		$minutes = (float) substr($lng, 3, 10);
-		$longitude_decimal = $lng_dir * ($degrees + $lng_dir * $minutes/60);
+		$longitude_decimal = $lng_dir * $degrees + $lng_dir * ($minutes/60);
 		
 		return array($latitude_decimal, $longitude_decimal);
 	}
