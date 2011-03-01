@@ -33,7 +33,7 @@ $defaults = array(
 );
 ?>
 
-<?=form_open('/receiver/event')?>
+<?=form_open('/receiver/event/debug')?>
 	<? foreach($post_data_map as $name=>$title):?>
 		<?=form_label($title, $name)?>
 		<?=form_input(array('name'=>$name), $defaults[$title])?>

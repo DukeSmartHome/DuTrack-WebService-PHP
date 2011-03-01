@@ -12,21 +12,32 @@ class Receiver extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 	
-	function event() 
+	function event($debug) 
 	{
-		$event = _map_post_data_for_model();
-		$event = _post_process_event($event);
-		// use model to write converted event data to database
-	    $this->event_model->add_record($event);
+		$event = $this->_map_post_data_for_model();
+		
+		if ($event) {
+			$event = $this->_post_process_event($event);
+			
+			if (!isset($debug) or $debug != 'debug') {
+				// use model to write converted event data to database
+		    	$this->event_model->add_record($event);
+			} else {
+				print_r($event);
+			}
+		}
 	}
 	
 	function _post_process_event($event)
 	{
 		list($event['latitude'], $event['longitude']) =
-			_convert_lat_lng_to_decimal($event['latitude'], 
+			$this->_convert_lat_lng_to_decimal($event['latitude'], 
 										$event['longitude']);
 		
-		$event['timestamp'] = _convert_to_unix_timestamp($event['timestamp']);
+		$event['timestamp'] = 
+			$this->_convert_to_unix_timestamp($event['timestamp']);
+		
+		return $event;
 	}
 	
 	/**
@@ -51,7 +62,7 @@ class Receiver extends CI_Controller {
 		// convert longitutde
 		$degrees = (float) substr($lng, 0, 3);
 		$minutes = (float) substr($lng, 3, 10);
-		$longitude_decimal = $lng_dir * ($degress + $lng_dir * $minutes/60);
+		$longitude_decimal = $lng_dir * ($degrees + $lng_dir * $minutes/60);
 		
 		return array($latitude_decimal, $longitude_decimal);
 	}
@@ -97,9 +108,15 @@ class Receiver extends CI_Controller {
 		// to model
       	$event = array();
       	foreach ($post_data_map as $key => $value) {
-	    	$event[$value] =  $this->input->post($key);
+      		$post_value = $this->input->post($key);
+			
+			// break and return NULL if any value is blank
+			if (!isset($post_value) or $post_value == '') {
+				return NULL;
+			} else {
+	    		$event[$value] = $post_value;
+			}
 		}
-		
 		return $event;
 	}
 	
