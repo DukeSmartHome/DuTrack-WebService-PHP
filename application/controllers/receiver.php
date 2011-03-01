@@ -102,4 +102,13 @@ class Receiver extends CI_Controller {
 		
 		return $event;
 	}
+	
+	/**
+	 * DISABLE ON PRODUCTION SITE - Used to test reciever 
+	 */
+	function test_form()
+	{
+		$this->load->helper('form');
+		$this->load->view('receiver_form');
+	}
 }
